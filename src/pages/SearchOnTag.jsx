@@ -34,6 +34,7 @@ export const SearchOnTag = () => {
     <>
       <Grid container spacing={4}>
         <Grid xs={8} item>
+          <h1>#{tagName}</h1>
           {!data.length
             ? [...Array(5)].map((_,index) => <Post key={index} isLoading={true}/> )
             :  data?.map((obj) => (
