@@ -4,8 +4,9 @@ import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
+import Grid from '@mui/material/Grid';
 
-import styles from './Login.module.scss';
+import styles from './Registration.module.scss';
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
@@ -45,48 +46,50 @@ export const Registration = () => {
   }
 
   return (
-    <Paper classes={{ root: styles.root }}>
-      <Typography classes={{ root: styles.title }} variant="h5">
-        Создание аккаунта
-      </Typography>
-      <div className={styles.avatar}>
-        <Avatar sx={{ width: 100, height: 100 }} />
-      </div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <TextField
-          className={styles.field}
-          label="Email"
-          error={errors.email}
-          helperText={errors.email?.message}
-          {...register('email', {required: "Укажите полную почту"})}
-          fullWidth
-        />
-        <TextField
-          className={styles.field}
-          label="Nickname"
-          error={errors.nickname}
-          helperText={errors.nickname?.message}
-          {...register('nickname', {required: "Укажите имя пользователя"})}
-          fullWidth
-        />
-        <TextField
-          className={styles.field}
-          label="Пароль"
-          error={errors.password}
-          helperText={errors.password?.message}
-          {...register('password', {required: "Укажите пароль"})}
-          fullWidth
-        />
-        <Button
-          type="submit"
-          size="large"
-          variant="contained"
-          disabled={!isValid}
-          fullWidth
-        >
-          Зарегистрироваться
-        </Button>
-      </form>
-    </Paper>
+    <Grid container md={12}>
+      <Paper classes={{ root: styles.root }}>
+        <Typography classes={{ root: styles.title }} variant="h5">
+          Создание аккаунта
+        </Typography>
+        <div className={styles.avatar}>
+          <Avatar sx={{ width: 100, height: 100 }} />
+        </div>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <TextField
+            className={styles.field}
+            label="Email"
+            error={errors.email}
+            helperText={errors.email?.message}
+            {...register('email', {required: "Укажите полную почту"})}
+            fullWidth
+          />
+          <TextField
+            className={styles.field}
+            label="Nickname"
+            error={errors.nickname}
+            helperText={errors.nickname?.message}
+            {...register('nickname', {required: "Укажите имя пользователя"})}
+            fullWidth
+          />
+          <TextField
+            className={styles.field}
+            label="Пароль"
+            error={errors.password}
+            helperText={errors.password?.message}
+            {...register('password', {required: "Укажите пароль"})}
+            fullWidth
+          />
+          <Button
+            type="submit"
+            size="large"
+            variant="contained"
+            disabled={!isValid}
+            fullWidth
+          >
+            Зарегистрироваться
+          </Button>
+        </form>
+      </Paper>
+    </Grid>
   );
 };
