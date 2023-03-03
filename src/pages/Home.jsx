@@ -7,6 +7,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import { Post } from '../components';
 import { TagsBlock } from '../components';
 import { fetchNewPosts, fetchPopularPosts, fetchTags } from "../store/slices/posts";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
   const [typePosts, setTypePosts] = useState('new')
@@ -42,11 +43,12 @@ export const Home = () => {
         <Tab label="Новые" onClick={() => tabOnClick(0, 'new')} />
         <Tab label="Популярные" onClick={() => tabOnClick(1, 'popular')} />
       </Tabs>
-      <Grid container spacing={4}>
-        <Grid xs={8} item>
+      <Grid container spacing={{ xs: 2, md: 4 }}>
+        <Grid md={8} xs={12} item>
           {isPostLoading
             ? [...Array(5)].map((_,index) => <Post key={index} isLoading={true}/> )
             :  (posts.items)?.map((obj) => (
+              <Link to={`/posts/${obj._id}`}>
                 <Post
                   id={obj._id}
                   title={obj.title}
@@ -58,10 +60,11 @@ export const Home = () => {
                   tags={obj.tags}
                   isEditable={userData?._id === obj.user._id}
                 />
+              </Link>
             ))
             }
         </Grid>
-        <Grid xs={4} item>
+        <Grid md={4} xs={12} item>
           <TagsBlock items={tags.items} isLoading={isTagsLoading} />
           {/*<CommentsBlock*/}
           {/*  items={[*/}

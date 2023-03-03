@@ -6,8 +6,13 @@ import { Index } from "../components";
 import { CommentsBlock } from "../components";
 import axios from "../axios";
 import ReactMarkdown from "react-markdown";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { Alert, AlertTitle } from "@mui/material";
 
 export const FullPost = () => {
+  const isAuth = useSelector(state => state.auth.data)
+
   const [data, setData] = useState(null)
   const [comments, setComments] = useState([])
   const [isLoading, setIsLoading] = useState(true)
@@ -64,7 +69,16 @@ export const FullPost = () => {
         items={comments}
         isLoading={false}
       >
-        <Index user={data.user} onSend={onSendComment} />
+        {isAuth
+          ? <Index user={data.user} onSend={onSendComment} />
+          : (
+            <Alert severity="warning">
+              <AlertTitle>Предупреждение</AlertTitle>
+              Для того чтобы оставлять комментарии пожалуйста <Link to="/login">авторизуйтесь</Link>
+            </Alert>
+          )
+        }
+
       </CommentsBlock>
     </>
   );
