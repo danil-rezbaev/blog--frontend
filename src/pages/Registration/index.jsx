@@ -6,8 +6,44 @@ import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
 
 import styles from './Login.module.scss';
+import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
+import { fetchRegister } from "../../store/slices/auth";
 
 export const Registration = () => {
+  const navigate = useNavigate()
+
+  const dispatch = useDispatch()
+  const isAuth = useSelector(state => state.auth.data)
+
+  const {register, handleSubmit,
+    formState: {errors, isValid}
+  } = useForm({
+    defaultValues: {
+      email: '',
+      nickname: '',
+      password: ''
+    }, mode: 'onChange'})
+
+  const onSubmit = async (value) => {
+    const data = await dispatch(fetchRegister(value))
+
+    console.log({data})
+
+    if(!data.payload) {
+      alert('Не удалось зарегистрироваться')
+    }
+
+    if('token' in data.payload) {
+      window.localStorage.setItem('token', data.payload.token)
+    }
+  }
+
+  if(isAuth) {
+    return navigate('/')
+  }
+
   return (
     <Paper classes={{ root: styles.root }}>
       <Typography classes={{ root: styles.title }} variant="h5">
@@ -16,12 +52,41 @@ export const Registration = () => {
       <div className={styles.avatar}>
         <Avatar sx={{ width: 100, height: 100 }} />
       </div>
-      <TextField className={styles.field} label="Полное имя" fullWidth />
-      <TextField className={styles.field} label="E-Mail" fullWidth />
-      <TextField className={styles.field} label="Пароль" fullWidth />
-      <Button size="large" variant="contained" fullWidth>
-        Зарегистрироваться
-      </Button>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <TextField
+          className={styles.field}
+          label="Email"
+          error={errors.email}
+          helperText={errors.email?.message}
+          {...register('email', {required: "Укажите полную почту"})}
+          fullWidth
+        />
+        <TextField
+          className={styles.field}
+          label="Nickname"
+          error={errors.nickname}
+          helperText={errors.nickname?.message}
+          {...register('nickname', {required: "Укажите имя пользователя"})}
+          fullWidth
+        />
+        <TextField
+          className={styles.field}
+          label="Пароль"
+          error={errors.password}
+          helperText={errors.password?.message}
+          {...register('password', {required: "Укажите пароль"})}
+          fullWidth
+        />
+        <Button
+          type="submit"
+          size="large"
+          variant="contained"
+          disabled={!isValid}
+          fullWidth
+        >
+          Зарегистрироваться
+        </Button>
+      </form>
     </Paper>
   );
 };
