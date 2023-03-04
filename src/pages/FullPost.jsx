@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 import { Alert, AlertTitle } from "@mui/material";
 
 export const FullPost = () => {
-  const isAuth = useSelector(state => state.auth.data)
+  const auth = useSelector(state => state.auth.data)
 
   const [data, setData] = useState(null)
   const [comments, setComments] = useState([])
@@ -69,8 +69,8 @@ export const FullPost = () => {
         items={comments}
         isLoading={false}
       >
-        {isAuth
-          ? <Index user={data.user} onSend={onSendComment} />
+        { auth
+          ? <Index user={auth} onSend={onSendComment} />
           : (
             <Alert severity="warning">
               <AlertTitle>Предупреждение</AlertTitle>
@@ -78,7 +78,6 @@ export const FullPost = () => {
             </Alert>
           )
         }
-
       </CommentsBlock>
     </>
   );
