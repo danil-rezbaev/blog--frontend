@@ -34,7 +34,7 @@ export const FullPost = () => {
   const onSendComment = useCallback(async (value) => {
     try {
       const {text} = value
-      const formatData = {user: data?.user, text}
+      const formatData = {user: auth, text}
 
       const response = await axios.patch(`/posts/${id}/comment`, formatData)
 
