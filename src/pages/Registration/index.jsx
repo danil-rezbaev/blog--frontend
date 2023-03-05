@@ -23,7 +23,7 @@ export const Registration = () => {
   } = useForm({
     defaultValues: {
       email: '',
-      nickname: '',
+      username: '',
       password: ''
     }, mode: 'onChange'})
 
@@ -65,10 +65,10 @@ export const Registration = () => {
           />
           <TextField
             className={styles.field}
-            label="Nickname"
-            error={errors.nickname}
-            helperText={errors.nickname?.message}
-            {...register('nickname', {required: "Укажите имя пользователя"})}
+            label="username"
+            error={errors.username}
+            helperText={errors.username?.message}
+            {...register('username', {required: "Укажите имя пользователя"})}
             fullWidth
           />
           <TextField

@@ -44,7 +44,7 @@ export const Home = () => {
         <Tab label="Популярные" onClick={() => tabOnClick(1, 'popular')} />
       </Tabs>
       <Grid container spacing={{ xs: 2, md: 4 }}>
-        <Grid md={8} xs={12} item>
+        <Grid md={8} xs={12}>
           {isPostLoading
             ? [...Array(5)].map((_,index) => <Post key={index} isLoading={true}/> )
             :  (posts.items)?.map((obj) => (
@@ -66,25 +66,6 @@ export const Home = () => {
         </Grid>
         <Grid md={4} xs={12} item>
           <TagsBlock items={tags.items} isLoading={isTagsLoading} />
-          {/*<CommentsBlock*/}
-          {/*  items={[*/}
-          {/*    {*/}
-          {/*      user: {*/}
-          {/*        nickname: 'Вася Пупкин',*/}
-          {/*        avatarUrl: 'https://mui.com/static/images/avatar/1.jpg',*/}
-          {/*      },*/}
-          {/*      text: 'Это тестовый комментарий',*/}
-          {/*    },*/}
-          {/*    {*/}
-          {/*      user: {*/}
-          {/*        nickname: 'Иван Иванов',*/}
-          {/*        avatarUrl: 'https://mui.com/static/images/avatar/2.jpg',*/}
-          {/*      },*/}
-          {/*      text: 'When displaying three lines or more, the avatar is not aligned at the top. You should set the prop to align the avatar at the top',*/}
-          {/*    },*/}
-          {/*  ]}*/}
-          {/*  isLoading={false}*/}
-          {/*/>*/}
         </Grid>
       </Grid>
     </>
